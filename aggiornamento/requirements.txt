@@ -1,0 +1,2 @@
+# aggiorna_amministratori.py usa solo la libreria standard di Python (3.6 o successivo).
+# Nessun pacchetto da installare: questo file e' volutamente privo di dipendenze.
