@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Comuni in Chiaro</title>
+  <meta name="theme-color" content="#0066CC">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="vendor/leaflet.css">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#/italia">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span>Comuni in Chiaro</span>
+    </a>
+    <nav class="nav">
+      <a href="#/italia" data-nav="italia">Italia</a>
+      <a href="#/confronto" data-nav="confronto">Confronto</a>
+      <a href="#/fonti" data-nav="fonti">Fonti</a>
+    </nav>
+    <div class="search">
+      <input id="search" type="search" placeholder="Cerca un comune…" autocomplete="off" spellcheck="false"
+             aria-label="Cerca un comune">
+      <ul id="search-results" class="search-results" hidden></ul>
+    </div>
+  </header>
+
+  <main id="main" class="main">
+    <div class="loading">Caricamento dei dati…</div>
+  </main>
+
+  <footer class="foot">Applicazione indipendente, non ufficiale, basata sugli open data di
+    <a href="https://cruscotto-italia.dati.gov.it" target="_blank" rel="noopener">Cruscotto Italia (AgID)</a> ·
+    <a href="#/fonti">fonti e licenze</a></footer>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="vendor/chart.umd.js"></script>
+  <script src="vendor/leaflet.js"></script>
+  <script src="comune.js"></script>
+  <script src="catasto.js"></script>
+  <script src="percorso.js"></script>
+  <script src="xlsx.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
