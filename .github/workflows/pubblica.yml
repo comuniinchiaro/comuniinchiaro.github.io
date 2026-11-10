@@ -1,0 +1,46 @@
+# Pubblica il sito (solo la cartella sito/) su GitHub Pages
+# e aggiorna settimanalmente i dati degli amministratori.
+name: Aggiorna e pubblica
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "30 4 * * 1"   # lunedì 04:30 UTC (05:30 ora italiana d'inverno)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  pubblica:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Aggiorna amministratori
+        if: github.event_name != 'push'
+        run: |
+          python3 aggiornamento/aggiorna_amministratori.py --sito sito
+          date -u +"%Y-%m-%d %H:%M UTC" > aggiornamento/ultimo_controllo.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A sito/data/amministratori aggiornamento/ultimo_controllo.txt
+          git commit -m "Aggiornamento amministratori" || true
+          git push
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: sito
+      - id: deploy
+        uses: actions/deploy-pages@v4
